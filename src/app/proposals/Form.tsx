@@ -39,7 +39,7 @@ function Form() {
   }
 
   const handleSubmit = (event: any) => {
-    event.preventDefault()
+    
     const proposed: proposal = {
       pname: DaoName,
       quorum: Quorum,
