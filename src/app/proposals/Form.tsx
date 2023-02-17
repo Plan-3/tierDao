@@ -7,6 +7,7 @@ add use client
 import React, { useState } from 'react'
 import { useMutation } from '@apollo/client';
 import { MUTATION_ADDPROPOSAL } from '@/lib/utils/graphql/Queries';
+import { revalidate } from './layout';
 
 
 

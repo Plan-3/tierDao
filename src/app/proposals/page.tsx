@@ -19,6 +19,7 @@ export async function generateMetadata({params, searchParams}){
   return { title: 'Next.js
 }}
 */
+export const revalidate = 1
 
 async function page() {
   await dbConnect()
