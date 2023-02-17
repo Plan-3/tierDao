@@ -1,0 +1,5 @@
+/*
+catch all error 
+replaces root layout 
+must define its own head and html
+*/
