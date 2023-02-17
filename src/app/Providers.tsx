@@ -13,7 +13,7 @@ import '@rainbow-me/rainbowkit/styles.css'
 import { ApolloClient, InMemoryCache, ApolloProvider, createHttpLink } from "@apollo/client";
 
 const httpLink = createHttpLink({
-  uri: 'http://localhost:8708'
+  uri: '/graphql'
 })
 const apolloClient = new ApolloClient({
   link: httpLink,
