@@ -13,7 +13,7 @@ import '@rainbow-me/rainbowkit/styles.css'
 import { ApolloClient, InMemoryCache, ApolloProvider, createHttpLink } from "@apollo/client";
 
 const httpLink = createHttpLink({
-  uri: '/server'
+  uri: '/api/route'
 })
 const apolloClient = new ApolloClient({
   link: httpLink,
