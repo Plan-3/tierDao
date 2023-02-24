@@ -19,5 +19,8 @@ type Mutation{
     tier: Int,
     options: [String]
   ):proposal
+  deleteProposal(
+    _id: ID!
+  ):proposal
 }
 `

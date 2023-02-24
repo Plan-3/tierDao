@@ -1,11 +1,20 @@
 import './globals.css'
 import Providers from './Providers'
+import { ApolloServer } from 'apollo-server'
+import { typeDefs } from '@/lib/utils/graphql/typeDefs'
+import resolvers from '@/lib/utils/graphql/Resolvers'
 
 /*
 A layout is UI that is shared between multiple pages. On navigation, layouts preserve state, remain interactive, and do not re-render. Layouts can also be nested.
 this is the root layout that is required only root needs head and html
 this replaces old next.js _app.js and _document.js
 */
+const server = new ApolloServer({
+  typeDefs,
+  resolvers
+})
+
+server.listen(8008)
 
 
 export default async function RootLayout({

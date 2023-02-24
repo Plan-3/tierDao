@@ -18,6 +18,11 @@ const resolvers = {
       await dbConnect()
       const addProposal = await Proposal.create(args)
       return addProposal
+    },
+    deleteProposal: async(_:any, {_id}:any)=> {
+      await dbConnect()
+      const deleteProposal = await Proposal.findByIdAndDelete({_id: _id})
+      return deleteProposal
     }
   }
 }

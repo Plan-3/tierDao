@@ -18,3 +18,10 @@ mutation addProposal($name: String!, $quorum: Int!, $tier: Int, $options: [Strin
       name
   }
 }`
+export const MUTATION_DELETEPROPOSAL = gql`
+mutation deleteProposal($id: ID!) {
+  deleteProposal(_id: $id){
+      _id
+      name
+  }
+}`
