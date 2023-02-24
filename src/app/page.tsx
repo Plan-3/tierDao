@@ -13,7 +13,7 @@ export default function Home() {
      <h1>Plan3 Options DAO</h1>
      <div style={{display: 'flex', justifyContent: 'space-around', padding: '1rem 4rem', width:'80%'}}>
       <h2><Link href='/proposals'>See Proposals</Link></h2>
-      <h2 style={{textDecoration: 'line-through'}}>Request a Token</h2>
+      <h2 style={{textDecoration: 'line-through'}}><Link href='/blockchain'>Request a Token</Link></h2>
      </div>
     </main>
   )

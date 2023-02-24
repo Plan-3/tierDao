@@ -9,13 +9,17 @@ A layout is UI that is shared between multiple pages. On navigation, layouts pre
 this is the root layout that is required only root needs head and html
 this replaces old next.js _app.js and _document.js
 */
+
+/*
+use this for local testing server 
+
 const server = new ApolloServer({
   typeDefs,
   resolvers
 })
 
 server.listen(8008)
-
+*/
 
 export default async function RootLayout({
   children, //will be a page or nested layout

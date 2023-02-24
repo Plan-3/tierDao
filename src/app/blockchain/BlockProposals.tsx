@@ -44,7 +44,7 @@ function BlockProposals() {
     enabled: read,
     onSuccess(data:any){
       console.log(data)
-      setObjProposal({name: BigNumber.from(data[0]).toString(), votes: BigNumber.from(data.votes._hex).toNumber(), tier: BigNumber.from(data.tier._hex).toNumber()})
+      setObjProposal({name: BigNumber.from(data[0]).toHexString(), votes: BigNumber.from(data.votes._hex).toNumber(), tier: BigNumber.from(data.tier._hex).toNumber()})
       setRead(!read)
     }
   })
@@ -60,14 +60,22 @@ function BlockProposals() {
     write: createProposalWrite
    } = useContractWrite(configCreateProposal)
 
+  const handleGetProposal = (event: any) => {
+    const { value } = event.target
+    setProposal(value)
+  }
   const handleChange = (event: any) => {
     const { value } = event.target
     setNewProposal(value)
   }
   return (
     <div style={{display: 'flex', flexDirection: 'column'}}>
-      <input style={{padding: '1rem', width: '25%'}} type="text" placeholder='Proposal name' onChange={(event) => handleChange(event)}/>
-      <button style={{padding: '1rem', width: '25%'}} onClick={() => setRead(!read)}>See console</button>
+      <input style={{padding: '1rem', width: '25%'}} type="text" placeholder='Proposal name' onChange={(event) => handleGetProposal(event)}/>
+      <button style={{padding: '1rem', width: '25%'}} onClick={() => {
+        setRead(!read)
+        console.log(proposal)
+      }
+      }>See console</button>
       <div>
         {objProposal ? 
           <div style={{float: 'right'}}>
