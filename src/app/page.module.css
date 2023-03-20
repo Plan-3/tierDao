@@ -7,6 +7,18 @@
   min-height: 100vh;
 }
 
+.propose {
+  background-color: rgba(240, 248, 255, 0.631);
+  box-shadow:5rem, 5rem, 20rem, rgb(0, 0, 240);
+  color: black;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 2.5rem;
+  padding: 1rem;
+  line-height: 1.4rem;
+  border-radius: .2rem;
+}
 .description {
   display: inherit;
   justify-content: inherit;

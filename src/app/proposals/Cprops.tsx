@@ -1,5 +1,6 @@
 'use client';
 import React from 'react'
+import styles from '../page.module.css'
 import { useMutation } from '@apollo/client';
 import { MUTATION_DELETEPROPOSAL } from '@/lib/utils/graphql/Queries';
 
@@ -22,9 +23,9 @@ function Cprops({props}: any) {
         //can display proposal ending in a ternary operator or not display it all
 
         return (
-          <div key={index}>
-            <h1 >{prop.name} ID:{prop._id.toString()}</h1>
-            <p>Quorum Percent: {prop.quorum}</p>
+          <div className={styles.propose} key={index}>
+            <h3 >ID: {prop._id.toString()}</h3>
+            <p>Quorum Percent: {prop.quorum}%</p>
             <p>Tier: {prop.tier}</p>
             <p>Proposal created at: {date}</p>
             {over ?

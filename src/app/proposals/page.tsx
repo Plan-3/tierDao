@@ -34,8 +34,8 @@ async function page() {
       <Nav />
       <h1><Link href='/'>Home</Link></h1>
       <Form/>
-      <Cprops props={props} />
       <Voting />
+      <Cprops props={props} />
     </div>
   )
 }

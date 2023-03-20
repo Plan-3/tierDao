@@ -65,11 +65,11 @@ function Form() {
 
 
   return (
-    <div>
-        <input type="text" placeholder='proposal name' name='pname' onChange={(event) => handleName(event)} />
-        <input type="number" placeholder='quorum percent 50' name='quorum' onChange={(event) => handleQuorum(event)} />
-        <input type="text" placeholder='Options seperate options with a comma' name='option1' onChange={(event) => handleOptions(event)}/>
-        <button onClick={(event) => handleSubmit(event)}>Submit</button>
+    <div style={{display: 'flex', flexDirection: 'column', maxWidth: '25%', marginLeft: '1rem'}}>
+        <input style={{paddingTop: '.25rem', paddingBottom: '.25rem', margin: '.4rem'}} type="text" placeholder='proposal name' name='pname' onChange={(event) => handleName(event)} />
+        <input style={{paddingTop: '.25rem', paddingBottom: '.25rem', margin: '.4rem'}} type="number" placeholder='quorum percent 50' name='quorum' onChange={(event) => handleQuorum(event)} />
+        <input style={{paddingTop: '.25rem', paddingBottom: '.25rem', margin: '.4rem'}} type="text" placeholder='Options seperate options with a comma' name='option1' onChange={(event) => handleOptions(event)}/>
+        <button style={{paddingTop: '.25rem', paddingBottom: '.25rem', margin: '.4rem'}} onClick={(event) => handleSubmit(event)}>Submit</button>
     </div>
   )
 }
