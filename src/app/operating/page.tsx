@@ -152,6 +152,7 @@ function page() {
             <option value="Unanimous">Unanimous</option>
           </select>
           </div>
+          <button type='submit'>Submit</button>
         </form>
       </div>
     </div>
