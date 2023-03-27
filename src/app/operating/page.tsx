@@ -10,7 +10,8 @@ function page() {
     <div>
       <Link href='/'>Home</Link>
       <div>
-        <form action="post">
+        {/* add mutation later */}
+        <form action="">
           <div className='rows'>
             <label htmlFor="EN">Entity Name:</label>
             <input type="text" name="EN" id="" placeholder='Entity Name' />
