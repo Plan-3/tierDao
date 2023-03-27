@@ -1,23 +1,22 @@
 'use client'
 import React, { useState } from 'react'
 import Link from 'next/link'
-import './form.css'
-
+import styles from './form.module.css'
 function page() {
   const [shares, setShares] = useState(false)
   const [filed, setFiled] = useState(false)
   return (
-    <div>
+    <div className={styles.div}>
       <Link href='/'>Home</Link>
-      <div>
+      <div className={styles.div}>
         {/* add mutation later */}
-        <form action="">
-          <div className='rows'>
-            <label htmlFor="EN">Entity Name:</label>
+        <form className={styles.form} action="">
+          <div className={styles.rows}>
+            <label className={styles.label} htmlFor="EN">Entity Name:</label>
             <input type="text" name="EN" id="" placeholder='Entity Name' />
           </div>
-          <div className='rows'>
-            <label htmlFor="Business Type">Business Type:</label>
+          <div className={styles.rows}>
+            <label className={styles.label} htmlFor="Business Type">Business Type:</label>
             <select name="Business Type" id="">
               <option value="LLC">LLC</option>
               <option value="S-Corp">S-Corp</option>
@@ -26,29 +25,29 @@ function page() {
               <option value="Other">Other</option>
             </select>
           </div>
-          <div className='rows'>
-            <label htmlFor="Ownership">Ownership:</label>
+          <div className={styles.rows}>
+            <label className={styles.label} htmlFor="Ownership">Ownership:</label>
             <select name="Ownership" id="">
               <option value="Sole">Sole Propriertorship</option>
               <option value="Partnership">Partnership</option>
             </select>
           </div>
-          <div className='rows'>
-            <label htmlFor="InitMems" style={{ fontSize: '.8rem' }}>Initial Members. Please seperate members with a comma:</label>
+          <div className={styles.rows}>
+            <label className={styles.label} htmlFor="InitMems" style={{ fontSize: '.8rem' }}>Initial Members. Please seperate members with a comma:</label>
             <input type="text" name="InitMems" id="" placeholder='Initial Members' />
           </div>
           <h4>Articles Filed</h4>
-          <div className='rows'>
-            <label htmlFor="BoolFiled">Yes:</label>
+          <div className={styles.rows}>
+            <label className={styles.label} htmlFor="BoolFiled">Yes:</label>
             <input type="checkbox" name="BoolFiled" id="" onChange={() => setFiled(!filed)} />
           </div>
           {filed ? <div>
-            <div className='rows'>
-              <label htmlFor="DateFiled">Date Filed:</label>
+            <div className={styles.rows}>
+              <label className={styles.label} htmlFor="DateFiled">Date Filed:</label>
               <input type="date" name="DateFiled" id="" />
             </div>
-            <div className='rows'>
-              <label htmlFor="StateFiled">State Filed:</label>
+            <div className={styles.rows}>
+              <label className={styles.label} htmlFor="StateFiled">State Filed:</label>
               <select name="StateFiled" id="">
                 <option value="AL">Alabama</option>
                 <option value="AK">Alaska</option>
@@ -107,8 +106,8 @@ function page() {
             :
             null
           }
-          <div className='rows'>
-            <label htmlFor="MemberManage">Management by a Member:</label>
+          <div className={styles.rows}>
+            <label className={styles.label} htmlFor="MemberManage">Management by a Member:</label>
             <select name="MemberManag" id="">
               <option value="Manager">Manager Managed</option>
               <option value="Member">Member Managed</option>
@@ -116,44 +115,44 @@ function page() {
               <option value="CEO">CEO or President managed</option>
             </select>
           </div>
-          <div className='rows'>
-            <label htmlFor="FS">Fiscal Year Start:</label>
+          <div className={styles.rows}>
+            <label className={styles.label} htmlFor="FS">Fiscal Year Start:</label>
             <input type="date" name="FS" id="" />
           </div>
           <div className="rows">
-            <label htmlFor="FE">Fiscal Year End:</label>
+            <label className={styles.label} htmlFor="FE">Fiscal Year End:</label>
             <input type="date" name="FE" id="" />
           </div>
           <h4>Shares</h4>
           <div className="rows">
-            <label htmlFor="Shares">Shares A:</label>
+            <label className={styles.label} htmlFor="Shares">Shares A:</label>
             <input type="number" placeholder='Shares A #' />
           </div>
           <div className="rows">
-            <label htmlFor="Shares">Shares B:</label>
+            <label className={styles.label} htmlFor="Shares">Shares B:</label>
             <input type="number" placeholder='Shares B #' />
           </div>
-          <div className='rows'>
-            <label htmlFor="ExShares">Ability to create shares:</label>
+          <div className={styles.rows}>
+            <label className={styles.label} htmlFor="ExShares">Ability to create shares:</label>
             <input type="checkbox" name="ExShares" id="" onChange={() => setShares(!shares)} />
           </div>
           {shares ? 
-          <div className='rows'>
-            <label htmlFor="ShareClass">Size of Share Class</label>
+          <div className={styles.rows}>
+            <label className={styles.label} htmlFor="ShareClass">Size of Share Class</label>
             <input type="number" name='ShareClass' placeholder='Size of Share Class' />
           </div>
           : 
           null
           }
-          <div className='rows'>
-          <label htmlFor="VotingMech">Voting Mechanism:</label>
+          <div className={styles.rows}>
+          <label className={styles.label} htmlFor="VotingMech">Voting Mechanism:</label>
           <select name="VotingMech" id="">
             <option value="Majority">Majority</option>
             <option value="Super">Super Majority</option>
             <option value="Unanimous">Unanimous</option>
           </select>
           </div>
-          <button type='submit'>Submit</button>
+          <button>Submit</button>
         </form>
       </div>
     </div>
