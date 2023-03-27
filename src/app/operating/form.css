@@ -1,0 +1,33 @@
+div{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  font-size: 1rem;
+}
+form{
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  height: 80%;
+  padding: 2rem;
+  box-shadow: 0 0 5rem rgba(77, 77, 77, 1);
+  background-color: rgb(94, 20, 162);
+  border: .3rem solid rgb(157, 67, 241);
+  border-radius: 1rem;
+}
+label{
+  margin: 0 .6rem .2rem 0;
+}
+
+.rows{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  padding: .3rem;
+}
+.rows input, .rows select{
+ 
+  padding: .3rem;
+}

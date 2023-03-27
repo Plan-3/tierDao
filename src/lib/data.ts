@@ -9,10 +9,13 @@ alternatively client-only
 will do the same thing for
 any client operations trying
 to be ran on the server
-*/
-
 import 'server-only'
 
 export async function getData() {
   let res = await fetch('getsomedatahere')
 }
+*/
+
+import { ethers } from "ethers";
+
+const provider = new ethers.providers.Web3Provider(window.ethereum as any);

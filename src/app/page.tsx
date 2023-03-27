@@ -15,6 +15,9 @@ export default function Home() {
       <h2><Link href='/proposals'>See Proposals</Link></h2>
       <h2 style={{textDecoration: 'line-through'}}><Link href='/blockchain'>Request a Token</Link></h2>
      </div>
+     <div>
+      <h2><Link href='/operating'>Create Operating Agreement</Link></h2>
+     </div>
     </main>
   )
 }

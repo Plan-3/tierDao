@@ -6,8 +6,9 @@ import {
   useContractRead,
   usePrepareContractWrite
 } from 'wagmi'
-import { watchContractEvent, signMessage } from '@wagmi/core'
+import { watchContractEvent, signMessage, signTypedData } from '@wagmi/core'
 import { BigNumber, Bytes, ethers } from 'ethers'
+import Web3 from 'web3'
 import token from '../../lib/utils/json/token20.json'
 import propContract from '../../lib/utils/json/proposalContract.json'
 import governor from '../../lib/utils/json/governorabi.json'
@@ -30,12 +31,16 @@ function BlockProposals() {
   const [success, setSuccess] = useState(false)
   const [read, setRead] = useState(false)
   const [objProposal, setObjProposal] = useState<objProposal>()
+
+
   const { config: configVoteYes } = usePrepareContractWrite({
     address: '0x90593829c40a6Cb650178fCFAb490F97574743E2',
     abi: propContract,
     functionName: 'voteYes',
     args: [proposal]
   })
+
+
   const { config: configCreateProposal } = usePrepareContractWrite({
     address: '0x90593829c40a6Cb650178fCFAb490F97574743E2',
     abi: propContract,
@@ -45,6 +50,8 @@ function BlockProposals() {
       setSuccess(false)
     }
   })
+
+
   // const {config: configUpdateVotingPeriod} = usePrepareContractWrite({
   //   address: '0xca937637769D0e893492Aa9eBB8CCDEc620E38C1',
   //   abi: governor,
@@ -66,11 +73,10 @@ function BlockProposals() {
   //     "Increase voting period to 1 hour"
   //   ]
   // })
-  const signature = async () => {
-    await signMessage({
-      message: 'This project is still a work in progress. If you would like to see more features check out https://www.tally.xyz/gov/plan-3-dao-mumbai'
-    })
-  }
+
+
+
+
   const { data } = useContractRead({
     address: '0x90593829c40a6Cb650178fCFAb490F97574743E2',
     abi: propContract,
@@ -83,6 +89,8 @@ function BlockProposals() {
       setRead(!read)
     }
   })
+
+
   const unwatch = watchContractEvent({
     address: '0xcA143Ce32Fe78f1f7019d7d551a6402fC5350c73',
     abi: tokenFactory,
@@ -93,12 +101,16 @@ function BlockProposals() {
     (token0, token1, pair, name) => {
       console.log(token0, token1, pair, name)
     })
+
+
   const {
     data: dataVoteYes,
     isError: voteYesError,
     isLoading: voteYesLoading,
     write: voteYesWrite
   } = useContractWrite(configVoteYes)
+
+
   const {
     isSuccess: createProposalSuccess,
     isLoading: createProposalLoading,
@@ -123,15 +135,18 @@ function BlockProposals() {
     const { value } = event.target
     setProposal(value)
   }
+
+
   const handleChange = (event: any) => {
     const { value } = event.target
     setNewProposal(value)
   }
+
+
   return (
     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'space-around' }}>
-      <button style={{ padding: '.4rem', margin: '.4rem' }} onClick={() => signature()}>Sign</button>
       <input style={{ padding: '.4rem', margin: '.4rem' }} type="text" placeholder='Proposal name' onChange={(event) => handleGetProposal(event)} />
-      <button style={{ padding: '.4rem', margin: '.4rem'}} onClick={() => {
+      <button style={{ padding: '.4rem', margin: '.4rem' }} onClick={() => {
         setRead(!read)
         console.log(proposal)
       }
@@ -152,8 +167,8 @@ function BlockProposals() {
       {success ?
         <h4>Loading...</h4>
         :
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
-          <input style={{ padding: '.4rem', margin: '.4rem'}} type="text" placeholder='Proposal Name' onChange={(event) => handleChange(event)} />
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+          <input style={{ padding: '.4rem', margin: '.4rem' }} type="text" placeholder='Proposal Name' onChange={(event) => handleChange(event)} />
           <button style={{ padding: '.4rem', margin: '.4rem' }} onClick={() => {
             createProposalWrite?.()
             setSuccess(true)
@@ -163,7 +178,7 @@ function BlockProposals() {
       }
 
       {/* <button style={{padding: '.4rem', width: '25%', marginTop: '5px'}} onClick={() => dataProposeWrite?.()}>Update voting period</button> */}
-      <div style={{display: 'flex', justifyContent: 'space-between'}}>
+      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
         <button style={{ padding: '.4rem', marginTop: '5px' }} onClick={() => unwatch()}>Get events</button>
       </div>
 
