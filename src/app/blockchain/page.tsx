@@ -7,7 +7,7 @@ function page() {
     <div>
       <Nav />
       <div>
-        <Signer />
+        {/* <Signer /> */}
         <BlockProposals />
       </div>
     </div>
