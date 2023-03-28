@@ -20,6 +20,9 @@ const server = new ApolloServer({
 
 server.listen(8008)
 */
+export const metadata = {
+  title: "PL3 DAO Framing"
+}
 
 export default async function RootLayout({
   children, //will be a page or nested layout
