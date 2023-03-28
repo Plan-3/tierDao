@@ -10,14 +10,15 @@ import Verify from '../../lib/utils/json/Verifier.json'
 
 function Signing() {
   const [whoAmI, setWhoAmI] = React.useState(false)
-  let win: any;
+  let provider:any;
+  let signer:any;
   const getWindow = async () => {
     let newWindow = new Promise((resolve, reject) => {
       try {
         if (typeof window !== 'undefined') {
           resolve
-          win = window.ethereum
-          console.log(win)
+         provider = new ethers.providers.Web3Provider(window.ethereum as any)
+         signer = provider.getSigner()
         }
       }
       catch (e) {
@@ -26,8 +27,6 @@ function Signing() {
     })
   }
   getWindow()
-  const provider = new ethers.providers.Web3Provider(win as any)
-  const signer = provider.getSigner()
   const verifier = new ethers.Contract('0x148Bd32591Aa339d367d3b40b573202D48234b2F', Verify, signer)
   const { address } = useAccount()
 
