@@ -2,6 +2,27 @@
 import React, { useState } from 'react'
 import Link from 'next/link'
 import styles from './form.module.css'
+
+interface operatingAgreement {
+  entityName: string,
+  businessType: string,
+  ownership: string,
+  initialMembers: string[],
+  articlesFiled: boolean,
+  dateFiled: string,
+  stateFiled: string,
+  management: string,
+  fiscalYearStart: Date,
+  fiscalYearEnd: Date,
+  sharesA: number,
+  sharesB: number,
+  shares: boolean,
+  shareSize: number,
+  votingMechanism: string
+}
+
+
+
 function page() {
   const [shares, setShares] = useState(false)
   const [filed, setFiled] = useState(false)
@@ -152,7 +173,7 @@ function page() {
             <option value="Unanimous">Unanimous</option>
           </select>
           </div>
-          <button>Submit</button>
+          <button className={styles.btnSub}>Submit</button>
         </form>
       </div>
     </div>
