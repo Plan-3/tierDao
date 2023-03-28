@@ -20,9 +20,9 @@ server.listen(8008)
 */
 
 
-export async function generateMetadata({params, searchParams}){
-  return { title: 'Operating Agreement'
-}}
+export const metadata = {
+  title: "Operating Agreement"
+}
 
 export default async function Layout({
   children, //will be a page or nested layout
