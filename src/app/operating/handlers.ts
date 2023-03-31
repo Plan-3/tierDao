@@ -68,7 +68,7 @@ export const handleCreateShares = (e: any) => {
 }
 export const handleSizeOfShares = (e: any) => {
     const {value} = e.target
-    sizeOfShares = value || null
+    sizeOfShares = Number(value) || 0
 }
 
 export const handleVotingMech = (e: any) => {
