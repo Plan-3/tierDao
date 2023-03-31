@@ -26,7 +26,7 @@ mutation deleteProposal($id: ID!) {
   }
 }`
 export const MUTATION_CREATEOPERATINGAGREEMENT = gql`
-mutation createOperatingAgreement($name: String!, $businessType: String!, $ownership: String!, $initialMembers: [String]!, $articlesFiled: Boolean, $dateFiled: Date, $stateFiled: String, $management: String!, $fiscalYearStart: Date!, $fiscalYearEnd: Date!, $sharesA: Int, $sharesB: Int, $createShares: Boolean, $sizeOfShares: Int, $votingMech: String!) {
+mutation createOperatingAgreement($name: String!, $businessType: String!, $ownership: String!, $initialMembers: [String]!, $articlesFiled: Boolean, $dateFiled: String, $stateFiled: String, $management: String!, $fiscalYearStart: String!, $fiscalYearEnd: String!, $sharesA: Int, $sharesB: Int, $createShares: Boolean, $sizeOfShares: Int, $votingMech: String!) {
   createOperatingAgreement(name: $name, businessType: $businessType, ownership: $ownership, initialMembers: $initialMembers, articlesFiled: $articlesFiled, dateFiled: $dateFiled, stateFiled: $stateFiled, management: $management, fiscalYearStart: $fiscalYearStart, fiscalYearEnd: $fiscalYearEnd, sharesA: $sharesA, sharesB: $sharesB, createShares: $createShares, sizeOfShares: $sizeOfShares, votingMech: $votingMech){
       _id
       name

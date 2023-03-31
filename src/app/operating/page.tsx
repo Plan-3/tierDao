@@ -130,8 +130,8 @@ function page() {
               <input type="date" name="DateFiled" id="" onChange={(event)=> handleDateFiled(event)}/>
             </div>
             <div className={styles.rows}>
-              <label className={styles.label} htmlFor="StateFiled" onChange={(event) => handleStateFiled(event)}>State Filed:</label>
-              <select name="StateFiled" id="">
+              <label className={styles.label} htmlFor="StateFiled" >State Filed:</label>
+              <select name="StateFiled" id="" onChange={(event) => handleStateFiled(event)}>
                 <option value="AL">Alabama</option>
                 <option value="AK">Alaska</option>
                 <option value="AZ">Arizona</option>
