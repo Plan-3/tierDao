@@ -1,4 +1,4 @@
-import {Schema, model} from 'mongoose'
+import mongoose, {Schema, model} from 'mongoose'
 
 interface IProposal {
   name: string;
@@ -31,7 +31,7 @@ const ProposalSchema = new Schema<IProposal>({
 })
 
 
-const Proposal = model<IProposal>("Proposal", ProposalSchema)
+const Proposal = mongoose.models.Proposal || model<IProposal>("Proposal", ProposalSchema)
 
 
 export default Proposal

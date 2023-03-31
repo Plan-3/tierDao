@@ -2,8 +2,42 @@
 import React, { useState } from 'react'
 import Link from 'next/link'
 import styles from './form.module.css'
+import { useMutation } from '@apollo/client'
+import { MUTATION_CREATEOPERATINGAGREEMENT } from '@/lib/utils/graphql/Queries'
+import {
+  entityName,
+  businessType,
+  ownership,
+  initialMembers,
+  articlesFiled,
+  dateFiled,
+  stateFiled,
+  management,
+  fiscalYearStart,
+  fiscalYearEnd,
+  sharesA,
+  sharesB,
+  createShares,
+  sizeOfShares,
+  votingMech,
+  handleName,
+  handleBusinessType,
+  handleOwnership,
+  handleInitialMembers,
+  handleArticlesFiled,
+  handleDateFiled,
+  handleStateFiled,
+  handleManagement,
+  handleFiscalYearStart,
+  handleFiscalYearEnd,
+  handleSharesA,
+  handleSharesB,
+  handleCreateShares,
+  handleSizeOfShares,
+  handleVotingMech
+} from './handlers'
 
-interface operatingAgreement {
+export interface operatingAgreement {
   entityName: string,
   businessType: string,
   ownership: string,
@@ -26,6 +60,31 @@ interface operatingAgreement {
 function page() {
   const [shares, setShares] = useState(false)
   const [filed, setFiled] = useState(false)
+  const [operatingAgreement, setOperatingAgreement] = useState<operatingAgreement | undefined>(undefined)
+  const [createOperatingAgreement, { error }] = useMutation(MUTATION_CREATEOPERATINGAGREEMENT)
+
+  const handleSubmit = (event: any) => {
+    event.preventDefault()
+    let operatingAgreement: operatingAgreement = {
+      entityName: entityName,
+      businessType: businessType,
+      ownership: ownership,
+      initialMembers: initialMembers,
+      articlesFiled: articlesFiled,
+      dateFiled: dateFiled,
+      stateFiled: stateFiled,
+      management: management,
+      fiscalYearStart: fiscalYearStart,
+      fiscalYearEnd: fiscalYearEnd,
+      sharesA: sharesA,
+      sharesB: sharesB,
+      shares: createShares,
+      shareSize: sizeOfShares,
+      votingMechanism: votingMech
+    }
+    console.log(operatingAgreement)
+    createOperatingAgreement({ variables: { entityName: operatingAgreement.entityName, businessType: operatingAgreement.businessType, ownership: operatingAgreement.ownership, initialMembers: operatingAgreement.initialMembers, articlesFiled: operatingAgreement.articlesFiled, dateFiled: operatingAgreement.dateFiled, stateFiled: operatingAgreement.stateFiled, management: operatingAgreement.management, fiscalYearStart: operatingAgreement.fiscalYearStart, fiscalYearEnd: operatingAgreement.fiscalYearEnd, sharesA: operatingAgreement.sharesA, sharesB: operatingAgreement.sharesB, shares: operatingAgreement.shares, shareSize: operatingAgreement.shareSize, votingMechanism: operatingAgreement.votingMechanism } })
+  }
   return (
     <div className={styles.div}>
       <Link href='/'>Home</Link>
@@ -34,11 +93,11 @@ function page() {
         <form className={styles.form} action="">
           <div className={styles.rows}>
             <label className={styles.label} htmlFor="EN">Entity Name:</label>
-            <input type="text" name="EN" id="" placeholder='Entity Name' />
+            <input type="text" name="EN" id="" placeholder='Entity Name' onChange={(event) => handleName(event)}/>
           </div>
           <div className={styles.rows}>
             <label className={styles.label} htmlFor="Business Type">Business Type:</label>
-            <select name="Business Type" id="">
+            <select name="Business Type" id="" onChange={(event)=> handleBusinessType(event)}>
               <option value="LLC">LLC</option>
               <option value="S-Corp">S-Corp</option>
               <option value="C-Corp">C-Corp</option>
@@ -48,27 +107,30 @@ function page() {
           </div>
           <div className={styles.rows}>
             <label className={styles.label} htmlFor="Ownership">Ownership:</label>
-            <select name="Ownership" id="">
+            <select name="Ownership" id="" onChange={(event)=> handleOwnership(event)}>
               <option value="Sole">Sole Propriertorship</option>
               <option value="Partnership">Partnership</option>
             </select>
           </div>
           <div className={styles.rows}>
             <label className={styles.label} htmlFor="InitMems" style={{ fontSize: '.8rem' }}>Initial Members. Please seperate members with a comma:</label>
-            <input type="text" name="InitMems" id="" placeholder='Initial Members' />
+            <input type="text" name="InitMems" id="" placeholder='Initial Members' onChange={(event)=> handleInitialMembers(event)}/>
           </div>
           <h4>Articles Filed</h4>
           <div className={styles.rows}>
             <label className={styles.label} htmlFor="BoolFiled">Yes:</label>
-            <input type="checkbox" name="BoolFiled" id="" onChange={() => setFiled(!filed)} />
+            <input type="checkbox" name="BoolFiled" id="" onChange={(event) =>{
+               setFiled(!filed)
+               handleArticlesFiled(event)
+               }} />
           </div>
           {filed ? <div>
             <div className={styles.rows}>
               <label className={styles.label} htmlFor="DateFiled">Date Filed:</label>
-              <input type="date" name="DateFiled" id="" />
+              <input type="date" name="DateFiled" id="" onChange={(event)=> handleDateFiled(event)}/>
             </div>
             <div className={styles.rows}>
-              <label className={styles.label} htmlFor="StateFiled">State Filed:</label>
+              <label className={styles.label} htmlFor="StateFiled" onChange={(event) => handleStateFiled(event)}>State Filed:</label>
               <select name="StateFiled" id="">
                 <option value="AL">Alabama</option>
                 <option value="AK">Alaska</option>
@@ -129,7 +191,7 @@ function page() {
           }
           <div className={styles.rows}>
             <label className={styles.label} htmlFor="MemberManage">Management by a Member:</label>
-            <select name="MemberManag" id="">
+            <select name="MemberManag" id="" onChange={(event) => handleManagement(event)}>
               <option value="Manager">Manager Managed</option>
               <option value="Member">Member Managed</option>
               <option value="Board">Board of Directors</option>
@@ -138,42 +200,45 @@ function page() {
           </div>
           <div className={styles.rows}>
             <label className={styles.label} htmlFor="FS">Fiscal Year Start:</label>
-            <input type="date" name="FS" id="" />
+            <input type="date" name="FS" id="" onChange={(event)=> handleFiscalYearStart(event)}/>
           </div>
           <div className="rows">
             <label className={styles.label} htmlFor="FE">Fiscal Year End:</label>
-            <input type="date" name="FE" id="" />
+            <input type="date" name="FE" id="" onChange={(event) => handleFiscalYearEnd(event)}/>
           </div>
           <h4>Shares</h4>
           <div className="rows">
             <label className={styles.label} htmlFor="Shares">Shares A:</label>
-            <input type="number" placeholder='Shares A #' />
+            <input type="number" placeholder='Shares A #' onChange={(event) => handleSharesA(event)}/>
           </div>
           <div className="rows">
             <label className={styles.label} htmlFor="Shares">Shares B:</label>
-            <input type="number" placeholder='Shares B #' />
+            <input type="number" placeholder='Shares B #' onChange={(event) => handleSharesB(event)}/>
           </div>
           <div className={styles.rows}>
             <label className={styles.label} htmlFor="ExShares">Ability to create shares:</label>
-            <input type="checkbox" name="ExShares" id="" onChange={() => setShares(!shares)} />
+            <input type="checkbox" name="ExShares" id="" onChange={(event) => {
+              setShares(!shares)
+              handleCreateShares(event)
+              }} />
           </div>
           {shares ? 
           <div className={styles.rows}>
             <label className={styles.label} htmlFor="ShareClass">Size of Share Class</label>
-            <input type="number" name='ShareClass' placeholder='Size of Share Class' />
+            <input type="number" name='ShareClass' placeholder='Size of Share Class' onChange={(event) => handleSizeOfShares(event)}/>
           </div>
           : 
           null
           }
           <div className={styles.rows}>
-          <label className={styles.label} htmlFor="VotingMech">Voting Mechanism:</label>
-          <select name="VotingMech" id="">
+          <label className={styles.label} htmlFor="VotingMech" >Voting Mechanism:</label>
+          <select name="VotingMech" id="" onChange={(event) => handleVotingMech(event)}>
             <option value="Majority">Majority</option>
             <option value="Super">Super Majority</option>
             <option value="Unanimous">Unanimous</option>
           </select>
           </div>
-          <button className={styles.btnSub}>Submit</button>
+          <button className={styles.btnSub} onClick={(event)=> handleSubmit(event)}>Submit</button>
         </form>
       </div>
     </div>

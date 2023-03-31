@@ -1,4 +1,5 @@
 import Proposal from "../mongo/models/Dao"
+import Operating from "../mongo/models/Operating"
 import { dbConnect } from "../mongo/Database"
 
 
@@ -23,6 +24,11 @@ const resolvers = {
       await dbConnect()
       const deleteProposal = await Proposal.findByIdAndDelete({_id: _id})
       return deleteProposal
+    },
+    createOperatingAgreement: async(_:any, args:any)=> {
+      await dbConnect()
+      const createOperatingAgreement = await Operating.create(args)
+      return createOperatingAgreement
     }
   }
 }
