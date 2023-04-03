@@ -6,8 +6,8 @@ export let articlesFiled: boolean
 export let dateFiled: string
 export let stateFiled: string
 export let management: string
-export let fiscalYearStart: Date
-export let fiscalYearEnd: Date
+export let fiscalYearStart: number[]
+export let fiscalYearEnd: number[]
 export let sharesA: number
 export let sharesB: number
 export let createShares: boolean
@@ -46,13 +46,31 @@ export const handleManagement = (e: any) => {
     const {value} = e.target
     management = value
 }
-export const handleFiscalYearStart = (e: any) => {
-    const {value} = e.target
-    fiscalYearStart = value
+export const handleMonth = (e: any) => {
+    const {name, value} = e.target
+    switch(name){
+        case 'FS':
+            fiscalYearStart[0] = Number(value)
+            break
+        case 'FE':
+            fiscalYearEnd[0] = Number(value)
+            break
+        default:
+            break
+    }
 }
-export const handleFiscalYearEnd = (e: any) => {
-    const {value} = e.target
-    fiscalYearEnd = value
+export const handleDate= (e: any) => {
+    const {name, value} = e.target
+    switch(name){
+        case 'FS':
+            fiscalYearStart[1] = Number(value)
+            break
+        case 'FE':
+            fiscalYearEnd[1] = Number(value)
+            break
+        default:
+            break
+    }
 }
 export const handleSharesA = (e: any) => {
     const {value} = e.target

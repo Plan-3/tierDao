@@ -50,8 +50,8 @@ type Mutation{
     dateFiled: String
     stateFiled: String
     management: String!
-    fiscalYearStart: String!
-    fiscalYearEnd: String!
+    fiscalYearStart:[Int]!
+    fiscalYearEnd: [Int]!
     sharesA: Int
     sharesB: Int
     createShares: Boolean

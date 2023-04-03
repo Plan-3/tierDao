@@ -9,8 +9,8 @@ interface IoperatingAgreement {
   dateFiled: Date;
   stateFiled: string;
   management: string;
-  fiscalYearStart: Date;
-  fiscalYearEnd: Date;
+  fiscalYearStart: number[];
+  fiscalYearEnd: number[];
   sharesA: number;
   sharesB: number;
   createShares: boolean;
@@ -27,8 +27,8 @@ const operatingSchema = new Schema<IoperatingAgreement>({
   dateFiled: Date,
   stateFiled: String,
   management: {type: String, required: true},
-  fiscalYearStart: {type: Date, required: true},
-  fiscalYearEnd: {type: Date, required: true},
+  fiscalYearStart: {type: [Number], required: true},
+  fiscalYearEnd: {type: [Number], required: true},
   sharesA: Number,
   sharesB: Number,
   createShares: Boolean,
