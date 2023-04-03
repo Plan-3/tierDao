@@ -64,7 +64,7 @@ function page() {
   const [createOperatingAgreement, { error }] = useMutation(MUTATION_CREATEOPERATINGAGREEMENT)
 
   const handleSubmit = (event: any) => {
-    
+    event.preventDefault()
     let operatingAgreement: operatingAgreement = {
       entityName: entityName,
       businessType: businessType,
@@ -93,11 +93,12 @@ function page() {
         <form className={styles.form} action="">
           <div className={styles.rows}>
             <label className={styles.label} htmlFor="EN">Entity Name:</label>
-            <input type="text" name="EN" id="" placeholder='Entity Name' onChange={(event) => handleName(event)}/>
+            <input type="text" name="EN" id="" placeholder='Entity Name' onChange={(event) => handleName(event)} />
           </div>
           <div className={styles.rows}>
             <label className={styles.label} htmlFor="Business Type">Business Type:</label>
-            <select name="Business Type" id="" onChange={(event)=> handleBusinessType(event)}>
+            <select name="Business Type" id="" onChange={(event) => handleBusinessType(event)}>
+              <option value=""></option>
               <option value="LLC">LLC</option>
               <option value="S-Corp">S-Corp</option>
               <option value="C-Corp">C-Corp</option>
@@ -107,32 +108,34 @@ function page() {
           </div>
           <div className={styles.rows}>
             <label className={styles.label} htmlFor="Ownership">Ownership:</label>
-            <select name="Ownership" id="" onChange={(event)=> handleOwnership(event)}>
-              <option value="Sole" selected>Sole Propriertorship</option>
+            <select name="Ownership" id="" onChange={(event) => handleOwnership(event)}>
+              <option value=""></option>
+              <option value="Sole">Sole Propriertorship</option>
               <option value="Partnership">Partnership</option>
             </select>
           </div>
           <div className={styles.rows}>
             <label className={styles.label} htmlFor="InitMems" style={{ fontSize: '.8rem' }}>Initial Members. Please seperate members with a comma:</label>
-            <input type="text" name="InitMems" id="" placeholder='Initial Members' onChange={(event)=> handleInitialMembers(event)}/>
+            <input type="text" name="InitMems" id="" placeholder='Initial Members' onChange={(event) => handleInitialMembers(event)} />
           </div>
           <h4>Articles Filed</h4>
           <div className={styles.rows}>
             <label className={styles.label} htmlFor="BoolFiled">Yes:</label>
-            <input type="checkbox" name="BoolFiled" id="" onChange={(event) =>{
-               setFiled(!filed)
-               handleArticlesFiled(event)
-               }} />
+            <input type="checkbox" name="BoolFiled" id="" onChange={(event) => {
+              setFiled(!filed)
+              handleArticlesFiled(event)
+            }} />
           </div>
           {filed ? <div>
             <div className={styles.rows}>
               <label className={styles.label} htmlFor="DateFiled">Date Filed:</label>
-              <input type="date" name="DateFiled" id="" onChange={(event)=> handleDateFiled(event)}/>
+              <input type="date" name="DateFiled" id="" onChange={(event) => handleDateFiled(event)} />
             </div>
             <div className={styles.rows}>
               <label className={styles.label} htmlFor="StateFiled" >State Filed:</label>
               <select name="StateFiled" id="" onChange={(event) => handleStateFiled(event)}>
-                <option value="AL" selected>Alabama</option>
+                <option value=""></option>
+                <option value="AL" >Alabama</option>
                 <option value="AK">Alaska</option>
                 <option value="AZ">Arizona</option>
                 <option value="AR">Arkansas</option>
@@ -192,7 +195,8 @@ function page() {
           <div className={styles.rows}>
             <label className={styles.label} htmlFor="MemberManage">Management by a Member:</label>
             <select name="MemberManag" id="" onChange={(event) => handleManagement(event)}>
-              <option value="Manager" selected>Manager Managed</option>
+              <option value=""></option>
+              <option value="Manager" >Manager Managed</option>
               <option value="Member">Member Managed</option>
               <option value="Board">Board of Directors</option>
               <option value="CEO">CEO or President managed</option>
@@ -201,29 +205,31 @@ function page() {
           <div className={styles.rows}>
             <label className={styles.label} htmlFor="FS">Fiscal Year Start:</label>
             <select name="FS" id="" onChange={(event) => handleMonth(event)}>Month
-              <option value="1" selected>Jan</option>
-              <option value="2">Feb</option>
-              <option value="3">Mar</option>
-              <option value="4">Apr</option>
-              <option value="5">May</option>
-              <option value="6">Jun</option>
-              <option value="7">Jul</option>
-              <option value="8">Aug</option>
-              <option value="9">Sep</option>
+              <option value=""></option>
+              <option value="01" >Jan</option>
+              <option value="02">Feb</option>
+              <option value="03">Mar</option>
+              <option value="04">Apr</option>
+              <option value="05">May</option>
+              <option value="06">Jun</option>
+              <option value="07">Jul</option>
+              <option value="08">Aug</option>
+              <option value="09">Sep</option>
               <option value="10">Oct</option>
               <option value="11">Nov</option>
               <option value="12">Dec</option>
             </select>
             <select name="FS" id="Day" onChange={(event) => handleDate(event)}>
-              <option value="1" selected>1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-              <option value="6">6</option>
-              <option value="7">7</option>
-              <option value="8">8</option>
-              <option value="9">9</option>
+              <option value=""></option>
+              <option value="01" >1</option>
+              <option value="02">2</option>
+              <option value="03">3</option>
+              <option value="04">4</option>
+              <option value="05">5</option>
+              <option value="06">6</option>
+              <option value="07">7</option>
+              <option value="08">8</option>
+              <option value="09">9</option>
               <option value="10">10</option>
               <option value="11">11</option>
               <option value="12">12</option>
@@ -251,29 +257,31 @@ function page() {
           <div className="rows">
             <label className={styles.label} htmlFor="FE">Fiscal Year End:</label>
             <select name="FE" id="" onChange={(event) => handleMonth(event)}>Month
-              <option value="1" selected>Jan</option>
-              <option value="2">Feb</option>
-              <option value="3">Mar</option>
-              <option value="4">Apr</option>
-              <option value="5">May</option>
-              <option value="6">Jun</option>
-              <option value="7">Jul</option>
-              <option value="8">Aug</option>
-              <option value="9">Sep</option>
+              <option value=""></option>
+              <option value="01" >Jan</option>
+              <option value="02">Feb</option>
+              <option value="03">Mar</option>
+              <option value="04">Apr</option>
+              <option value="05">May</option>
+              <option value="06">Jun</option>
+              <option value="07">Jul</option>
+              <option value="08">Aug</option>
+              <option value="09">Sep</option>
               <option value="10">Oct</option>
               <option value="11">Nov</option>
               <option value="12">Dec</option>
             </select>
             <select name="FE" id="Day" onChange={(event) => handleDate(event)}>
-              <option value="1" selected>1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-              <option value="6">6</option>
-              <option value="7">7</option>
-              <option value="8">8</option>
-              <option value="9">9</option>
+              <option value=""></option>
+              <option value="01" >1</option>
+              <option value="02">2</option>
+              <option value="03">3</option>
+              <option value="04">4</option>
+              <option value="05">5</option>
+              <option value="06">6</option>
+              <option value="07">7</option>
+              <option value="08">8</option>
+              <option value="09">9</option>
               <option value="10">10</option>
               <option value="11">11</option>
               <option value="12">12</option>
@@ -301,36 +309,37 @@ function page() {
           <h4>Shares</h4>
           <div className="rows">
             <label className={styles.label} htmlFor="Shares">Shares A:</label>
-            <input type="number" placeholder='Shares A #' onChange={(event) => handleSharesA(event)}/>
+            <input type="number" placeholder='Shares A #' onChange={(event) => handleSharesA(event)} />
           </div>
           <div className="rows">
             <label className={styles.label} htmlFor="Shares">Shares B:</label>
-            <input type="number" placeholder='Shares B #' onChange={(event) => handleSharesB(event)}/>
+            <input type="number" placeholder='Shares B #' onChange={(event) => handleSharesB(event)} />
           </div>
           <div className={styles.rows}>
             <label className={styles.label} htmlFor="ExShares">Ability to create shares:</label>
             <input type="checkbox" name="ExShares" id="" onChange={(event) => {
               setShares(!shares)
               handleCreateShares(event)
-              }} />
+            }} />
           </div>
-          {shares ? 
-          <div className={styles.rows}>
-            <label className={styles.label} htmlFor="ShareClass">Size of Share Class</label>
-            <input type="number" name='ShareClass' placeholder='Size of Share Class' onChange={(event) => handleSizeOfShares(event)}/>
-          </div>
-          : 
-          null
+          {shares ?
+            <div className={styles.rows}>
+              <label className={styles.label} htmlFor="ShareClass">Size of Share Class</label>
+              <input type="number" name='ShareClass' placeholder='Size of Share Class' onChange={(event) => handleSizeOfShares(event)} />
+            </div>
+            :
+            null
           }
           <div className={styles.rows}>
-          <label className={styles.label} htmlFor="VotingMech" >Voting Mechanism:</label>
-          <select name="VotingMech" id="" onChange={(event) => handleVotingMech(event)}>
-            <option value="Majority" selected>Majority</option>
-            <option value="Super">Super Majority</option>
-            <option value="Unanimous">Unanimous</option>
-          </select>
+            <label className={styles.label} htmlFor="VotingMech" >Voting Mechanism:</label>
+            <select name="VotingMech" id="" onChange={(event) => handleVotingMech(event)}>
+              <option value=""></option>
+              <option value="Majority" >Majority</option>
+              <option value="Super">Super Majority</option>
+              <option value="Unanimous">Unanimous</option>
+            </select>
           </div>
-          <button className={styles.btnSub} onClick={(event)=> handleSubmit(event)}>Submit</button>
+          <button className={styles.btnSub} onClick={(event) => handleSubmit(event)}>Submit</button>
         </form>
       </div>
     </div>

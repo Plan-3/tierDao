@@ -48,12 +48,14 @@ export const handleManagement = (e: any) => {
 }
 export const handleMonth = (e: any) => {
     const {name, value} = e.target
+    console.log(e.target.value)
     switch(name){
         case 'FS':
-            fiscalYearStart[0] = Number(value)
+            fiscalYearStart = [Number(value)]
+            console.log(fiscalYearStart)
             break
         case 'FE':
-            fiscalYearEnd[0] = Number(value)
+            fiscalYearEnd = [Number(value)]
             break
         default:
             break
