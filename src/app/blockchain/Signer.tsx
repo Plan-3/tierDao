@@ -39,7 +39,10 @@ function Signing() {
     // hash of the message prefixes with special message to prevent signing arbitrary data
     let hash = ethers.utils.hashMessage("By signing this you agree to the terms and conditions.")
     console.log(`r ${r}, \n s ${s}, \n v ${v} \n hash ${hash}`)
-    setWhoAmI(await verifier.isSigned(address, hash, v, r, s))
+    /* isSigned takes 3 arguments: an address, the hash of the message, and the signature 
+    compares signature to the address first argument is address we want to make sure is signing like Secretary
+    */
+    setWhoAmI(await verifier.isSigned('0xb94ae34DE09B1EeF75E18e8Ed17F91C32E9B0A9f', hash, v, r, s))
   }
   return (
     <div style={{ display: 'flex', justifyContent: 'center' }}>
@@ -49,5 +52,17 @@ function Signing() {
     </div>
   )
 }
-
+export const sign = async (address: any, signer:any, verifier:any) => {
+  let whoAmI:boolean;
+  let signature = await signer.signMessage("By signing this you agree emails have been sent")
+  let sig = signature.substr(2)
+  let r = '0x' + sig.substring(0, 64) // first 32 bytes
+  let s = '0x' + sig.substring(64, 128) // next 32 bytes
+  let v = parseInt(sig.substring(128, 130), 16) // final byte must be a turned into a decimal and must be between 27 and 28
+  // hash of the message prefixes with special message to prevent signing arbitrary data
+  let hash = ethers.utils.hashMessage("By signing this you agree to the terms and conditions.")
+  console.log(`r ${r}, \n s ${s}, \n v ${v} \n hash ${hash}`)
+  whoAmI = (await verifier.isSigned(address, hash, v, r, s))
+  return whoAmI
+}
 export default Signing

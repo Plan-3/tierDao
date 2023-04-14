@@ -1,13 +1,15 @@
 import React from 'react'
-import Document from './Document'
+import SecretaryEmail from './SecretaryEmail'
+
 
 function page() {
+  
   return (
     <div>
-      <h1>Welcome to your account</h1>
-      <Document />
+      <SecretaryEmail />
     </div>
   )
+
 }
 
 export default page

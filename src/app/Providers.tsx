@@ -7,11 +7,13 @@ import React from 'react';
 import { createClient, configureChains, WagmiConfig } from 'wagmi'
 //goerli and eth mainnet comes with defaultChains
 import { bsc, polygonMumbai } from 'wagmi/chains'
-import {jsonRpcProvider} from '@wagmi/core/providers/jsonRpc'
+import { jsonRpcProvider } from '@wagmi/core/providers/jsonRpc'
 import { alchemyProvider } from 'wagmi/providers/alchemy'
 import { getDefaultWallets, RainbowKitProvider, darkTheme } from '@rainbow-me/rainbowkit'
 import '@rainbow-me/rainbowkit/styles.css'
 import { ApolloClient, InMemoryCache, ApolloProvider, createHttpLink } from "@apollo/client";
+import { AppProps } from 'next/app';
+import { SessionProvider } from "next-auth/react"
 
 const httpLink = createHttpLink({
   //production uri /api/route local uri http://localhost:8008
@@ -51,18 +53,19 @@ const wagmiClient = createClient({
   connectors
 })
 
-export default function Providers({ children }: { children: React.ReactNode }) {
-
+export default function Providers({children}: { children: React.ReactNode}) {
   return (
     <ApolloProvider client={apolloClient}>
       <WagmiConfig client={wagmiClient}>
-        <RainbowKitProvider chains={chains} theme={darkTheme({
-          accentColor: '#202020',
-          accentColorForeground: 'white',
-          borderRadius: 'none',
-        })}>
-          {children}
-        </RainbowKitProvider>
+        <SessionProvider>
+          <RainbowKitProvider chains={chains} theme={darkTheme({
+            accentColor: '#202020',
+            accentColorForeground: 'white',
+            borderRadius: 'none',
+          })}>
+            {children}
+          </RainbowKitProvider>
+        </SessionProvider>
       </WagmiConfig>
     </ApolloProvider>
   );
