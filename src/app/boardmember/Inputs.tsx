@@ -1,25 +1,88 @@
 'use client'
 import React, {useState} from 'react'
+import { prepareWriteContract, writeContract } from '@wagmi/core';
+import {ethers} from 'ethers'
+import boardabi from '../../lib/utils/json/boardABI.json'
+import governor from '../../lib/utils/json/governorabi.json'
+import address from '../../lib/utils/json/addresses.json'
 
-function Inputs(props: any) {
-  const [inputs, setInputs] = useState<any>([])
+
+interface proposal {
+  targets: string[],
+  values: number[],
+  calldatas: string[],
+  description: string
+}
+const encode = (functionToCall: string, args: any) => {
+  console.log(ethers.utils.formatBytes32String(functionToCall + args));
+  
+  return ethers.utils.formatBytes32String(functionToCall + args)
+}
+/* 
+issues: if submit is not clicked after each input the calldata array is duplicated
+*/
+function Inputs(inputs: any) {
+  const [description, setDescription] = useState('')
+  const [addDescription, setAddDescription] = useState(false)
+  // extract address array from json file index key is in json file for reference
+  const something: any = address[0][80001]
+  
+  
+  
+  let newInput: proposal = {
+    targets: [],
+    values: [],
+    calldatas: [],
+    description: ''
+  }
+
+  const handleInputChange = (event: any) => {
+    const { value } = event.target
+    let eachInput = value
+    newInput.calldatas.push(eachInput)
+  }
+
+  const gov = async () => {
+    const calldatas = encode(inputs.inputs.name, newInput.calldatas)
+    console.log(calldatas);
+    
+    const govConfig = await prepareWriteContract({
+    address: '0xca937637769D0e893492Aa9eBB8CCDEc620E38C1',
+    abi: governor,
+    functionName: 'propose',
+    args: [
+      // targets[] target contract address
+      [something[5]],
+      // values[] value to send to target contract usually not needed value == matic, eth etc
+      [0],
+      // calldatas bytes[] function name and arguments combined into bytes 
+      [calldatas],
+      // description string description of proposal optional
+      description || ""
+    ],
+  })
+
+  const govData = await writeContract(govConfig)
+}
+
+
+  
   return (
     <div>
-      {props.props == undefined ?
+      {inputs.inputs == undefined ?
         <div>
           Loading...
         </div>
         :
         <div>
-          {props.props.inputs.length > 0 ?
+          {inputs.inputs.inputs.length > 0 ?
             <div>
               {
-                props.props.inputs.map((x: any, index: number) => {
-                  console.log(x)
+                inputs.inputs.inputs.map((x: any, index: number) => {
                   return (
                     <div key={index}>
                       <p>{x.name}</p>
-                      <input type="text" placeholder={x.type}/>
+                      <input type="text" placeholder={x.type} onBlur={(event) => handleInputChange(event) }/>
                     </div>
                   )
                 })
@@ -28,12 +91,23 @@ function Inputs(props: any) {
             : 
             "No inputs"
           }
-          <div>
-            <button> Start Vote</button>
+            <div>
+              <h4>Add a description?</h4>
+              <label htmlFor="descBool">Yes</label>
+              <input type="checkbox" name="descBool" id="" onChange={() => setAddDescription(!addDescription)}/>
+            </div>
+          <div>{addDescription ?
+            <div>
+              <input type="text" name="" id="" placeholder='description' onChange={(event) => setDescription(event.target.value)}/>
+            </div>
+            :
+            ''
+            }
+            <button type='submit' onClick={()=> gov()}> Start Vote</button>
           </div>
         </div>
       }
-
+    <button onClick={() => encode('amendArticles', '')}>hello</button>
     </div >
   )
 }

@@ -44,7 +44,7 @@ function SecretaryEmail() {
     emails: string[],
     email: string,
     subject: string,
-    text: string,
+    text: string
   }
 
   const getWindow = async () => {
@@ -86,6 +86,8 @@ function SecretaryEmail() {
       subject,
       text
     }
+    console.log(message);
+    
     fetch('/api/Sendgrid', {
       method: 'POST',
       body: JSON.stringify(message),
@@ -95,8 +97,13 @@ function SecretaryEmail() {
     })
   }
 
-  const handleFileChange = (event: any) => {
-    setFile(event.target.files)
+  const handleFileChange = async (event: any) => {
+    setFile(event.target.files[0])
+    // const reader = new FileReader()
+    // reader.onload = (evt) => {
+    //   let dataUri = `data:${event.target.files[0].type};base64,${btoa(evt.target?.result as string)}`
+    //   console.log(dataUri);
+    // }  
   }
   const handleFileUpload = () => {
     const docuRef = ref(storage, `documents/${file[0].name}`)

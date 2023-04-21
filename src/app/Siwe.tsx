@@ -55,7 +55,6 @@ function Siwe() {
           </div> 
         :
         <div>
-          <button onClick={async () => await getCsrfToken()}>token</button>
           <button
             onClick={(e) => {
               e.preventDefault()

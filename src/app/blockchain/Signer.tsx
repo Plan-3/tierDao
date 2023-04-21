@@ -2,9 +2,10 @@
 import React, { useEffect } from 'react'
 import { useAccount } from 'wagmi'
 import { watchContractEvent, signMessage, signTypedData } from '@wagmi/core'
-import { ethers, VoidSigner } from 'ethers'
+import { ethers, VoidSigner} from 'ethers'
 import Web3 from 'web3'
-import Verify from '../../lib/utils/json/Verifier.json'
+import Verify from '../../lib/utils/json/verifywithemitabi.json'
+import governor from '../../lib/utils/json/governorabi.json'
 
 
 
@@ -27,9 +28,14 @@ function Signing() {
     })
   }
   getWindow()
-  const verifier = new ethers.Contract('0x148Bd32591Aa339d367d3b40b573202D48234b2F', Verify, signer)
+  const verifier = new ethers.Contract('0xDF48a208449937dB8303bFE7FC84ca25902C4039', Verify, signer)
+  const gov = new ethers.Contract('0xca937637769D0e893492Aa9eBB8CCDEc620E38C1', governor, provider)
   const { address } = useAccount()
-
+  const getLogs = async () => {
+    let result = await fetch(`https://api-testnet.polygonscan.com/api?module=logs&action=getLogs&fromBlock=30000000&toBlock=40000000&address=0xca937637769D0e893492Aa9eBB8CCDEc620E38C1&topic0=0x7d84a6263ae0d98d3329bd7b46bb4e8d6f98cd35a7adb45c274c8b7fd5ebd5e0&apikey=39XJIPVAQ6T176BAF8UUDEZBNPBX2D4BK3`)
+    let data = await result.json()
+    console.log(data)
+  }
   const sign = async () => {
     let signature = await signer.signMessage("By signing this you agree to the terms and conditions.")
     let sig = signature.substr(2)
@@ -48,7 +54,7 @@ function Signing() {
     <div style={{ display: 'flex', justifyContent: 'center' }}>
       <button style={{ padding: '.4rem', margin: '.4rem' }} onClick={() => sign()}>Sign</button>
       {(whoAmI === true) ? <p>True</p> : <p>False</p>}
-
+      <button onClick={() => getLogs()}>here</button>
     </div>
   )
 }

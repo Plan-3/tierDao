@@ -7,7 +7,7 @@ import {
   usePrepareContractWrite
 } from 'wagmi'
 import { watchContractEvent, signMessage, signTypedData } from '@wagmi/core'
-import { BigNumber, Bytes, ethers } from 'ethers'
+import { BigNumber, Bytes, ethers, ContractReceipt } from 'ethers'
 import Web3 from 'web3'
 import token from '../../lib/utils/json/token20.json'
 import propContract from '../../lib/utils/json/proposalContract.json'
@@ -17,6 +17,7 @@ import tokenFactory from '../../lib/utils/json/pancakeswapfactory.json'
 const encode = (functionToCall: string, args: any) => {
   return ethers.utils.formatBytes32String(functionToCall + args)
 }
+
 
 
 interface objProposal {
@@ -50,7 +51,6 @@ function BlockProposals() {
       setSuccess(false)
     }
   })
-
 
   // const {config: configUpdateVotingPeriod} = usePrepareContractWrite({
   //   address: '0xca937637769D0e893492Aa9eBB8CCDEc620E38C1',
@@ -90,18 +90,17 @@ function BlockProposals() {
     }
   })
 
+  
 
   const unwatch = watchContractEvent({
-    address: '0xcA143Ce32Fe78f1f7019d7d551a6402fC5350c73',
-    abi: tokenFactory,
-    eventName: 'PairCreated',
-    chainId: 56,
-    once: true,
+    address: '0x67f411fd69ff92f7432f8be60f6677e2bcda71df',
+    abi: governor,
+    eventName: 'ProposalCreated'
   },
-    (token0, token1, pair, name) => {
-      console.log(token0, token1, pair, name)
+    (proposalId) => {
+      console.log(proposalId)
     })
-
+    
 
   const {
     data: dataVoteYes,
@@ -179,7 +178,11 @@ function BlockProposals() {
 
       {/* <button style={{padding: '.4rem', width: '25%', marginTop: '5px'}} onClick={() => dataProposeWrite?.()}>Update voting period</button> */}
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-        <button style={{ padding: '.4rem', marginTop: '5px' }} onClick={() => unwatch()}>Get events</button>
+        <button style={{ padding: '.4rem', marginTop: '5px' }} onClick={() => {
+          console.log('hello');
+          
+          unwatch()
+        }}>Get events</button>
       </div>
 
     </div>

@@ -3,7 +3,7 @@ import React from 'react'
 import { useSession } from 'next-auth/react'
 import { useAccount } from 'wagmi'
 import Link from 'next/link'
-import Board1 from './Board1'
+import President  from './President'
 import Board2 from './Board2'
 
 function Member() {
@@ -20,7 +20,7 @@ function Member() {
           :
           (session?.user.name == '0x7AD00f47AD50194d6d54b2F8605E7d2803795BF4') ?
             <div>
-              <Board1 />
+              <President />
             </div>
             :
             (session?.user.name == '0xB535c6e924b591013c6027Dc66aAEc5B634ce567') ?

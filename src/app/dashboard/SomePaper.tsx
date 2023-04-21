@@ -38,9 +38,13 @@ function SomePaper(someProps: any) {
     <div>
       {!loading ?
         documents.map((item: any, index: number) => {
+          console.log(item.slice(80).split('.pdf')[0]);
+          
           return(
             <div key={index}>
+              <h1>
               <Link href={item}>{item.slice(80).split('.pdf')[0]}</Link>
+              </h1> 
             </div>
           )
         })
