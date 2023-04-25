@@ -7,6 +7,7 @@ import { SiweMessage } from "siwe"
 // https://next-auth.js.org/configuration/options
 
 export default async function auth(req: any, res: any) {
+  console.log(process.env.NEXTAUTH_SECRET);
   const providers = [
     CredentialsProvider({
       name: "Ethereum",
@@ -61,7 +62,6 @@ export default async function auth(req: any, res: any) {
       maxAge: 24*60*60, // 24 hours
       strategy: "jwt",
     },
-    secret: process.env.NEXTAUTH_SECRET,
     callbacks: {
       async session({ session, token }: { session: any; token: any }) {
         session.address = token.sub
@@ -70,5 +70,6 @@ export default async function auth(req: any, res: any) {
         return session
       },
     },
+    secret: process.env.NEXTAUTH_SECRET,
   })
 }
