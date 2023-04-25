@@ -43,7 +43,7 @@ function Voting() {
 
   return (
     <div style={{ textAlign: 'center' }}>
-      {loading ?
+      {!loading ?
         <div>
           {events.map((event: any, index: number) => {
             let descSplit = event.description.split('\n')
