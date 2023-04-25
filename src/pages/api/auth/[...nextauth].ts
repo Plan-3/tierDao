@@ -7,7 +7,7 @@ import { SiweMessage } from "siwe"
 // https://next-auth.js.org/configuration/options
 
 export default async function auth(req: any, res: any) {
-  console.log(process.env.NEXTAUTH_SECRET);
+  
   const providers = [
     CredentialsProvider({
       name: "Ethereum",

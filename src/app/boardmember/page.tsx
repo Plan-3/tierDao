@@ -1,6 +1,7 @@
 import React from 'react'
 import Member from './Member'
 
+export const revalidate = 1
 function page() {
 
   return (
