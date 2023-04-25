@@ -47,7 +47,7 @@ function Inputs(inputs: any) {
     console.log(calldatas);
     
     const govConfig = await prepareWriteContract({
-    address: '0xca937637769D0e893492Aa9eBB8CCDEc620E38C1',
+    address: '0x67F411FD69fF92F7432F8bE60F6677e2BCDA71dF',
     abi: governor,
     functionName: 'propose',
     args: [
@@ -107,7 +107,6 @@ function Inputs(inputs: any) {
           </div>
         </div>
       }
-    <button onClick={() => encode('amendArticles', '')}>hello</button>
     </div >
   )
 }

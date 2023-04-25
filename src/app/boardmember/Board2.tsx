@@ -2,10 +2,6 @@
 import React, { useState } from 'react'
 import { useSession } from 'next-auth/react'
 import { useAccount } from 'wagmi'
-import {
-  prepareWriteContract,
-  writeContract,
-} from '@wagmi/core'
 import Inputs from './Inputs'
 import boardabi from '../../lib/utils/json/boardABI.json'
 
@@ -16,25 +12,13 @@ function Board2() {
   const boardFunctions = boardabi.filter((x) => x.type == 'function')
   let boardInputs = boardabi.filter((values) => values.name == functionName)[0];
 
-  const addShares = async () => {
-    const addSharesConfig = await prepareWriteContract({
-      address: '0x9f42A2c5589b56e42b2A9F1C5527efa700163EC0',
-      abi: boardabi,
-      functionName: 'addShares',
-      args: ["class", 1000],
-    })
-
-    const addSharesData = await writeContract(addSharesConfig)
-    return addSharesData
-  }
-
   const handleFunctionChange = (event: any) => {
     const { value } = event.target
     setFunctionName(value)
   }
 
   return (
-    <div>
+    <div style={{textAlign: 'center'}}>
       {session ?
         <div>
           <h1>Welcome Board Member</h1>

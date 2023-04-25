@@ -1,7 +1,4 @@
 //import type { NextApiRequest, NextApiResponse } from 'next'
-import formidable from 'formidable'
-import fs from 'fs'
-import path from 'path'
 import { MongoClient } from 'mongodb'
 import { initializeApp } from 'firebase/app'
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage'
