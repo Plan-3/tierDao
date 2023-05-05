@@ -8,13 +8,23 @@ import gov from '../../lib/utils/json/governorabi.json'
 import Vote from './Vote'
 
 
-const web3 = new Web3("https://polygon-mumbai.g.alchemy.com/v2/ITvmLNjk1vvbZAi2yjIa9KHovUc8Q7_y")
-const govContract = new web3.eth.Contract(gov as AbiItem[], '0x67f411fd69ff92f7432f8be60f6677e2bcda71df')
 let events: any = []
 let votes: any = []
 let latestBlock: number;
 
-
+/*
+states:
+0  Pending,
+1  Active,
+2  Canceled,
+3  Defeated,
+4  Succeeded,
+5  Queued,
+6  Expired,
+7  Executed
+*/
+const web3 = new Web3("https://polygon-mumbai.g.alchemy.com/v2/0sLFPM94rswhQT3_scCwbzaVvzzQlPg7")
+const govContract = new web3.eth.Contract(gov as AbiItem[], '0x67f411fd69ff92f7432f8be60f6677e2bcda71df')
 
 function Voting() {
   const [loading, setLoading] = useState(true)
@@ -33,7 +43,7 @@ function Voting() {
       const eventsObj = await govContract.getPastEvents('ProposalCreated', { fromBlock: 0, toBlock: 'latest' })
       eventsObj.forEach((event) => {
         events.push(event.returnValues)
-        events.reverse()
+        events.sort((a: any, b: any) => b.startBlock - a.startBlock)
       })
 
       setLoading(false)
@@ -48,29 +58,13 @@ function Voting() {
           {events.map((event: any, index: number) => {
             let descSplit = event.description.split('\n')
             let vote = votes.filter((x: any) => x.proposalId == event.proposalId)
-            /*
-            vote.forEach((x: any) => {
-              // check if user has voted
-              // session is set up in next auth .d .ts file there you can set up an object
-              if (x.voter == session?.user.name) {
-                voted = true
-              }
-            })
-            */
             return (
               <div key={index}>
                 <h1>Proposal ID: {event.proposalId.slice(0, 6)}...{event.proposalId.slice(event.proposalId.split('').length - 4)}</h1>
                 <h3>Proposed By: {event.proposer.slice(0, 4)}...{event.proposer.slice(event.proposer.split('').length - 4)}</h3>
                 <p>{descSplit[0]}</p>
                 <p>{descSplit[1]}</p>
-                {event.endBlock < latestBlock ?
-                  <h3>Proposal Ended</h3>
-                  :
-                  (voted) ?
-                    <h3>Already Voted</h3>
-                    :
-                    <Vote props={event} />
-                }
+                <Vote props={event} />
               </div>
             )
           })}

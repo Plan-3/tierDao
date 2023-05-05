@@ -1,5 +1,5 @@
 'use client'
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import { useSession } from 'next-auth/react'
 import { useAccount } from 'wagmi'
 import Link from 'next/link'
@@ -34,20 +34,20 @@ function Member() {
     return delegateData
   }
 
-  const getDelegates = async () => {
-    let dg: any = []
-    const delegates = await ercContract.getPastEvents('DelegateChanged', {fromBlock: 0, toBlock: 'latest'})
-    delegates.forEach((dx: any) => {
-      dg.push(dx.returnValues.toDelegate)
-    })
-    for (let index = 0; index < dg.length; index++) {
-      const element = dg[index];
-      if(element == session?.user.name){
-        setDelegated(true)
+    const getDelegates = async () => {
+      let dg: any = []
+      const delegates = await ercContract.getPastEvents('DelegateChanged', {fromBlock: 0, toBlock: 'latest'})
+      delegates.forEach((dx: any) => {
+        dg.push(dx.returnValues.toDelegate)
+      })
+      for (let index = 0; index < dg.length; index++) {
+        const element = dg[index];
+        if(element == session?.user.name){
+          setDelegated(true)
+        }
       }
     }
-  }
-  getDelegates()
+    getDelegates()
   return (
     <div>
       <h1><Link href={'/'}> Home</Link></h1>

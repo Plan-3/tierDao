@@ -1,7 +1,6 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from 'next'
 import sgMail from '@sendgrid/mail'
-import fs from 'fs'
 
 //convert to string
 const SENDGRID_API: string = <string>process.env.SENDGRID_API
@@ -15,8 +14,6 @@ export default function handler(
   res: NextApiResponse
   
   ) {
-    const attachment = fs.readFileSync(req.body.file)
-    console.log(req.body);
     const msg = {
       //
       to: req.body.emails,

@@ -14,8 +14,6 @@ interface proposal {
   description: string
 }
 const encode = (functionToCall: string, args: any) => {
-  console.log(ethers.utils.formatBytes32String(functionToCall + args));
-  
   return ethers.utils.formatBytes32String(functionToCall + args)
 }
 /* 
@@ -44,7 +42,6 @@ function Inputs(inputs: any) {
 
   const gov = async () => {
     const calldatas = encode(inputs.inputs.name, newInput.calldatas)
-    console.log(calldatas);
     
     const govConfig = await prepareWriteContract({
     address: '0x67F411FD69fF92F7432F8bE60F6677e2BCDA71dF',
